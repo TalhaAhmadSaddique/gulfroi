@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large raw data files (use scripts/aggregate.py to regenerate)
+*.csv.gz
+rents-2026-05-23.csv
+transactions_*.csv
+screencapture-*.pdf
