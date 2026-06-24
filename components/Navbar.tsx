@@ -42,7 +42,7 @@ export default function Navbar() {
             <CalculatorIcon className="h-4 w-4" style={{ color: "#070809" }} />
           </div>
           <span style={{ color: "#F0E8D8" }}>
-            UAE<span className="gold-text">ROI</span>
+            Dubai<span className="gold-text">ROI</span>
           </span>
         </Link>
 
@@ -52,6 +52,7 @@ export default function Navbar() {
             { href: "/#features", label: "Features" },
             { href: "/#how-it-works", label: "How It Works" },
             { href: "/#market-data", label: "Market Data" },
+            { href: "/#faq", label: "FAQ" },
           ].map((item) => (
             <Link
               key={item.href}
@@ -103,6 +104,7 @@ export default function Navbar() {
             { href: "/#features", label: "Features" },
             { href: "/#how-it-works", label: "How It Works" },
             { href: "/#market-data", label: "Market Data" },
+            { href: "/#faq", label: "FAQ" },
           ].map((item) => (
             <Link
               key={item.href}
@@ -119,7 +121,7 @@ export default function Navbar() {
             className="btn-gold block text-center px-4 py-2.5 text-sm rounded-lg"
             onClick={() => setOpen(false)}
           >
-            Try Calculator — Free
+            Try Calculator (Free)
           </Link>
         </div>
       )}

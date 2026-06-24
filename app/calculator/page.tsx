@@ -2,28 +2,35 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DubaiBackground from "@/components/DubaiBackground";
-import UAECalculator from "@/components/UAECalculator";
-import { getAllAreas, getPropertyTypes } from "@/lib/market-data";
-import { getAllTrends } from "@/lib/quarterly-trends";
+import DubaiCalculator from "@/components/DubaiCalculator";
+import { SEO_KEYWORDS } from "@/lib/landing-content";
+import { getSiteUrl } from "@/lib/site-url";
+
+const siteUrl = getSiteUrl();
 
 export const metadata: Metadata = {
-  title: "Dubai ROI Calculator — Free Property Analysis Tool",
+  title: "Dubai Property ROI Calculator | Free Rental Yield & Price Tool",
   description:
-    "Calculate gross yield, net yield, cash flow and ROI for any Dubai property. 108 areas with real DLD sales and Ejari rental data. 100% free.",
+    "Free Dubai real estate ROI calculator. Analyse gross yield, net yield, rental income, price per sqft and cash flow using real DLD sales and Ejari rental data for 108 Dubai areas.",
+  keywords: SEO_KEYWORDS.slice(0, 12),
+  alternates: {
+    canonical: `${siteUrl}/calculator`,
+  },
+  openGraph: {
+    title: "Dubai Property ROI Calculator | Free Tool",
+    description: "Real DLD area data. Calculate yield, cash flow and ROI for Dubai properties.",
+    url: `${siteUrl}/calculator`,
+  },
 };
 
 export default function CalculatorPage() {
-  const areas      = getAllAreas();
-  const propTypes  = getPropertyTypes();
-  const trends     = getAllTrends();
-
   return (
     <div className="min-h-screen flex flex-col relative">
       <DubaiBackground />
       <div className="relative z-10 flex flex-col flex-1 min-h-screen">
         <Navbar />
         <main className="flex-1">
-          <UAECalculator areas={areas} propTypes={propTypes} trends={trends} />
+          <DubaiCalculator />
         </main>
         <Footer />
       </div>

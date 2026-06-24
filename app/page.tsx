@@ -1,10 +1,14 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DubaiBackground from "@/components/DubaiBackground";
 import ScrollReveal from "@/components/ScrollReveal";
 import StatsCounter from "@/components/StatsCounter";
 import { getFeaturedAreas, getDubaiMarketStats } from "@/lib/featured-areas";
+import { CAPABILITIES } from "@/lib/landing-content";
+import { getSiteUrl } from "@/lib/site-url";
+import LandingFaq from "@/components/LandingFaq";
 import {
   CalculatorIcon,
   TrendingUp,
@@ -27,17 +31,17 @@ const features = [
   {
     icon: TrendingUp,
     title: "Complete ROI Breakdown",
-    desc: "Gross yield, net yield, cash-on-cash return, and ROI — all computed from a single property input.",
+    desc: "Free Dubai real estate ROI calculator for gross yield, net yield, cash-on-cash return, and total ROI from a single property input.",
   },
   {
     icon: MapPin,
-    title: "Area-Level Market Data",
-    desc: "Real DLD sale prices and Ejari rental rates across 100+ Dubai neighbourhoods.",
+    title: "Dubai Rental Data by Area",
+    desc: "Real Ejari rental rates and DLD sale prices per sqft across 108 Dubai neighbourhoods for accurate price estimations.",
   },
   {
     icon: Banknote,
     title: "Mortgage & Cash Flow",
-    desc: "Monthly mortgage, net cash flow, and break-even period — with your actual financing terms.",
+    desc: "Monthly mortgage, net cash flow, and break-even period with your actual financing terms.",
   },
   {
     icon: BarChart3,
@@ -50,7 +54,7 @@ const steps = [
   {
     step: "01",
     title: "Select Your Area",
-    desc: "Choose from 100+ Dubai areas — JVC, Business Bay, Dubai Marina and more. Market data auto-populates.",
+    desc: "Choose from 100+ Dubai areas: JVC, Business Bay, Dubai Marina and more. Market data auto-populates.",
   },
   {
     step: "02",
@@ -60,7 +64,7 @@ const steps = [
   {
     step: "03",
     title: "Analyse & Decide",
-    desc: "Get a full investment breakdown — yield, cash flow, mortgage, and ROI — in under 10 seconds.",
+    desc: "Get a full investment breakdown: yield, cash flow, mortgage, and ROI in under 10 seconds.",
   },
 ];
 
@@ -109,13 +113,20 @@ const trustPoints = [
   { icon: Clock, title: "Always Up to Date", desc: "Market data from official DLD sales and Ejari rental records." },
 ];
 
+export const metadata: Metadata = {
+  title: "Free Dubai Real Estate ROI Calculator | DLD & Ejari Data",
+  description:
+    "Free Dubai property ROI calculator powered by real DLD transaction and Ejari rental data. Price estimations, rental yield, cash flow and mortgage analysis for 108 Dubai areas.",
+  alternates: { canonical: getSiteUrl() },
+};
+
 export default function LandingPage() {
   const marketStats = getDubaiMarketStats();
   const featuredAreas = getFeaturedAreas(8);
   const yieldRange =
     marketStats.yieldMin != null && marketStats.yieldMax != null
-      ? `${marketStats.yieldMin.toFixed(1)} – ${marketStats.yieldMax.toFixed(1)}%`
-      : "4 – 8%";
+      ? `${marketStats.yieldMin.toFixed(1)} - ${marketStats.yieldMax.toFixed(1)}%`
+      : "4 - 8%";
 
   const stats = [
     { value: String(marketStats.areaCount), numericValue: marketStats.areaCount, suffix: "", label: "Dubai Areas Covered" },
@@ -152,17 +163,23 @@ export default function LandingPage() {
             className="animate-fade-in-up text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-6"
             style={{ animationDelay: "100ms", color: "#F0E8D8" }}
           >
-            Know Your Dubai
+            Know Your
             <br />
-            <span className="gold-shimmer-text">Property ROI</span>
+            <span className="gold-shimmer-text">Dubai Property ROI</span>
           </h1>
+
+          <p
+            className="animate-fade-in-up text-base md:text-lg max-w-3xl mx-auto mb-4 font-medium"
+            style={{ animationDelay: "150ms", color: "rgba(232,220,200,0.75)" }}
+          >
+            Free Dubai Real Estate ROI Calculator: price estimations, rental yield &amp; cash flow analysis
+          </p>
 
           <p
             className="animate-fade-in-up text-lg md:text-xl max-w-2xl mx-auto mb-10"
             style={{ animationDelay: "200ms", color: "rgba(232,220,200,0.6)" }}
           >
-            Instant gross yield, net yield, cash flow, and mortgage analysis for Dubai properties.
-            Powered by real DLD transaction and Ejari rental data across {marketStats.areaCount} neighbourhoods.
+            Instant gross yield, net yield, cash flow, and mortgage analysis powered by real DLD transaction and Ejari rental data across {marketStats.areaCount} Dubai neighbourhoods.
           </p>
 
           <div
@@ -174,7 +191,7 @@ export default function LandingPage() {
               className="btn-gold inline-flex items-center justify-center gap-2 px-8 py-4 text-base rounded-xl"
             >
               <CalculatorIcon className="h-5 w-5" />
-              Calculate ROI — Free
+              Calculate ROI (Free)
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
@@ -221,6 +238,37 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── CAPABILITIES (SEO content) ── */}
+      <section className="py-20 md:py-28" style={{ background: "rgba(10,11,14,0.6)" }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollReveal className="text-center mb-14">
+            <p className="font-semibold text-sm uppercase tracking-widest mb-3" style={{ color: "var(--gold)" }}>
+              Dubai Property Tools
+            </p>
+            <h2 className="text-3xl md:text-4xl font-extrabold mb-4" style={{ color: "#F0E8D8" }}>
+              Free ROI calculator, rental data &amp; price estimations
+            </h2>
+            <p className="max-w-2xl mx-auto text-sm md:text-base leading-relaxed" style={{ color: "rgba(232,220,200,0.55)" }}>
+              Dubai ROI is a free Dubai property investment calculator built for buyers, agents, and investors who need
+              real numbers, not guesswork. We aggregate official DLD sales transactions and Ejari rental contracts
+              to deliver area-level price per sqft benchmarks, rental yield analysis, and property price estimations
+              across {marketStats.areaCount} Dubai communities.
+            </p>
+          </ScrollReveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {CAPABILITIES.map((c, i) => (
+              <ScrollReveal key={c.title} delay={i * 80}>
+                <div className="glass-card glass-card-hover p-6 h-full">
+                  <h3 className="font-bold text-base mb-2" style={{ color: "#F0E8D8" }}>{c.title}</h3>
+                  <p className="text-sm leading-relaxed" style={{ color: "rgba(232,220,200,0.55)" }}>{c.desc}</p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── FEATURES ── */}
       <section id="features" className="py-20 md:py-28" style={{ background: "rgba(10,11,14,0.6)" }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -230,7 +278,7 @@ export default function LandingPage() {
               Everything needed to evaluate a Dubai property
             </h2>
             <p className="max-w-xl mx-auto" style={{ color: "rgba(232,220,200,0.5)" }}>
-              No spreadsheets. No guesswork. Just enter the basics — we handle the analysis.
+              No spreadsheets. No guesswork. Enter the basics and we handle the analysis.
             </p>
           </ScrollReveal>
 
@@ -364,7 +412,7 @@ export default function LandingPage() {
               </h2>
               <p className="leading-relaxed mb-6" style={{ color: "rgba(232,220,200,0.55)" }}>
                 Our calculator comes pre-loaded with average price per sqft, rental rates, gross yields,
-                and service charges for {marketStats.areaCount} Dubai areas — sourced from official DLD and Ejari records.
+                and service charges for {marketStats.areaCount} Dubai areas, sourced from official DLD and Ejari records.
               </p>
               <ul className="space-y-3 mb-8">
                 {[
@@ -419,6 +467,8 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      <LandingFaq />
 
       {/* ── CTA BANNER ── */}
       <section className="py-20 relative overflow-hidden" style={{ background: "rgba(10,11,14,0.6)" }}>

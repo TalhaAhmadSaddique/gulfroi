@@ -1,0 +1,102 @@
+[
+  {
+    "date": "06/08/2026",
+    "brand": "Steve\u2019s Real Food",
+    "product": "Freeze Dried Chicken Recipe Cat and Dog Food",
+    "product_type": "Animal & Veterinary, Pet Food, Food & Beverages, Pet Food",
+    "reason": "May contain low levels of thiamine (Vitamin B1)",
+    "company": "Go Raw, LLC.",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/go-raw-llc-expands-voluntary-recall-include-one-lot-steves-real-food-freeze-dried-chicken-recipe-due",
+    "source": "api"
+  },
+  {
+    "date": "06/05/2026",
+    "brand": "No Brand",
+    "product": "Requeson 1lb. clamshell packages",
+    "product_type": "Food & Beverages, Foodborne Illness",
+    "reason": "Product contaminated with Listeria monocytogenes",
+    "company": "Nelson & Isa Lacteos LLC",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/nelson-isa-lacteos-llc-recalls-requeson-cheese-due-possible-health-risk",
+    "source": "api"
+  },
+  {
+    "date": "06/05/2026",
+    "brand": "Pearl Milling Company",
+    "product": "MEZCLA PARA PANQUEQUES Y WAFFLES",
+    "product_type": "Food & Beverages, Allergens",
+    "reason": "Debido a la presencia no declarada de leche y soya",
+    "company": "Ballester Hermanos",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/ballester-hermanos-realiza-un-retiro-por-contenido-no-declarado-de-soya-y-leche-en-pearl-milling",
+    "source": "api"
+  },
+  {
+    "date": "06/05/2026",
+    "brand": "Pearl Milling Company",
+    "product": "Pearl Milling Company Original Pancake & Waffles Complete \u2013 5.99 oz (170g)",
+    "product_type": "Food & Beverages, Allergens",
+    "reason": "Undeclared Soy and Milk",
+    "company": "Ballester Hermanos",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/ballester-hermanos-issues-recall-due-undeclared-soy-and-milk-pearl-milling-company-original-pancake",
+    "source": "api"
+  },
+  {
+    "date": "06/04/2026",
+    "brand": "No Brand",
+    "product": "Dried Herring Fish packaged in clear, plastic 7 oz bag with blue trim",
+    "product_type": "Food & Beverages, Foodborne Illness",
+    "reason": "Product was not adequately eviscerated and may harbor C.botulinum spores",
+    "company": "Prime Food Processing LLC",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/prime-food-processing-llc-issues-safety-warning-regarding-uneviscerated-dried-herring-fish",
+    "source": "api"
+  },
+  {
+    "date": "06/03/2026",
+    "brand": "TNVitamins and Doctor\u2019s Pride",
+    "product": "TNVitamins Ultra Potent Complete Green Superfood Capsules and Doctor\u2019s Pride Complete Green Superfood capsules",
+    "product_type": "Food & Beverages, Foodborne Illness",
+    "reason": "Possible Salmonella Contamination",
+    "company": "Total Nutrition Inc.",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/total-nutrition-inc-expands-recall-tnvitamins-and-doctors-pride-ultra-potent-complete-green",
+    "source": "api"
+  },
+  {
+    "date": "06/01/2026",
+    "brand": "Motor City Pizza Co.",
+    "product": "Motor City Pizza Co. 5 Cheese Bread Single and 2 Packs",
+    "product_type": "Food & Beverages, Foodborne Illness",
+    "reason": "Possible Salmonella Contamination",
+    "company": "Champion Foods LLC",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/champion-foods-recalls-some-batches-motor-city-pizza-co-5-cheese-bread-because-possible-health-risk",
+    "source": "api"
+  },
+  {
+    "date": "05/27/2026",
+    "brand": "D\u2019Dioses",
+    "product": "Fruit popsicles",
+    "product_type": "Food & Beverages, Allergens",
+    "reason": "May Contain undeclared milk, pecans, pistachios, yellow #5 and red #40",
+    "company": "De Dios\u2019s Ice Pops II LLC",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/de-dioss-ice-pops-ii-llc-issues-allergy-alert-undeclared-milk-pecans-pistachio-yellow-5-and-red-40",
+    "source": "api"
+  },
+  {
+    "date": "05/27/2026",
+    "brand": "SkinnyDipped",
+    "product": "Dark Chocolate Coconut Almond Bites",
+    "product_type": "Food & Beverages, Allergens",
+    "reason": "May Contain undeclared peanuts",
+    "company": "Bazzini, LLC",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/bazzini-voluntarily-recalls-certain-lots-skinnydippedr-dark-chocolate-coconut-almond-bites-due",
+    "source": "api"
+  },
+  {
+    "date": "05/26/2026",
+    "brand": "Mogo",
+    "product": "Mogo Moringa Oleifera Capsules",
+    "product_type": "Food & Beverages, Foodborne Illness",
+    "reason": "Possible Salmonella Contamination",
+    "company": "Mogo Moringa LLC",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/mogo-moringa-llc-announces-voluntary-recall-select-lots-moringa-capsules-due-possible-salmonella",
+    "source": "api"
+  }
+]

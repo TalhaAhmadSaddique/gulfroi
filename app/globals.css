@@ -218,6 +218,7 @@ input[type="range"]::-moz-range-thumb {
 
 /* ── Select dark styling ──────────────────────────────────── */
 select.dark-select {
+  min-height: 44px;
   background-color: rgba(255,255,255,0.05);
   border: 1px solid rgba(201,168,76,0.2);
   color: #E8DCC8;
@@ -229,10 +230,8 @@ select.dark-select:focus {
   border-color: var(--gold);
   box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
 }
-select.dark-select option {
-  background-color: #111215;
-  color: #E8DCC8;
-}
+details > summary::-webkit-details-marker { display: none; }
+details > summary { list-style: none; }
 
 /* ── Input dark styling ───────────────────────────────────── */
 input.dark-input {

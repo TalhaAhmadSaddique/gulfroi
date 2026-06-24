@@ -1,0 +1,54 @@
+Reference date (today): 2026-06-23
+Last 1 year:  2025-06-23 → 2026-06-23
+Last 6 months: 2025-12-23 → 2026-06-23
+
+============================================================
+RENTAL CONTRACTS
+/media/talha/26402263402239C7/data/rent_contracts_2026-05-30_18-51-21_2.csv
+============================================================
+  … 2,000,000 rows scanned
+  … 4,000,000 rows scanned
+  … 6,000,000 rows scanned
+  … 8,000,000 rows scanned
+  … 10,000,000 rows scanned
+  … 12,000,000 rows scanned
+  … 14,000,000 rows scanned
+  … 16,000,000 rows scanned
+  … 18,000,000 rows scanned
+  … 20,000,000 rows scanned
+  … 22,000,000 rows scanned
+  … 24,000,000 rows scanned
+  … 26,000,000 rows scanned
+  … 28,000,000 rows scanned
+  … 30,000,000 rows scanned
+  … 32,000,000 rows scanned
+
+  Total rows:          33,041,083
+  Date range:        2001-02-15 → 2205-07-16
+  Bad/missing dates:            0
+  Last 1 year (≥2025-06-23):    1,913,860  (5.8%)
+  Last 6 months (≥2025-12-23):      803,746  (2.4%)
+
+============================================================
+TRANSACTIONS
+/media/talha/26402263402239C7/transactions_2026-05-29_02-08-58_2.csv.gz
+============================================================
+  … 2,000,000 rows scanned
+  … 4,000,000 rows scanned
+  … 6,000,000 rows scanned
+  … 8,000,000 rows scanned
+  … 10,000,000 rows scanned
+  … 12,000,000 rows scanned
+
+  Total rows:          12,043,593
+  Date range:        1416-07-02 → 2026-05-21
+  Bad/missing dates:            0
+  Last 1 year (≥2025-06-23):    1,679,480  (13.9%)
+  Last 6 months (≥2025-12-23):      680,341  (5.6%)
+
+============================================================
+SUMMARY
+============================================================
+                            Total      Last 1Y      Last 6M
+Rental                 33,041,083    1,913,860      803,746
+Transactions           12,043,593    1,679,480      680,341

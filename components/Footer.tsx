@@ -20,7 +20,7 @@ export default function Footer() {
                 <CalculatorIcon className="h-4 w-4" style={{ color: "#070809" }} />
               </div>
               <span style={{ color: "#F0E8D8" }}>
-                UAE<span className="gold-text">ROI</span>
+                Dubai<span className="gold-text">ROI</span>
               </span>
             </Link>
             <p className="text-sm max-w-xs mt-2" style={{ color: "rgba(232,220,200,0.4)" }}>
@@ -35,6 +35,7 @@ export default function Footer() {
                 { href: "/calculator", label: "ROI Calculator" },
                 { href: "/#features", label: "Features" },
                 { href: "/#how-it-works", label: "How It Works" },
+                { href: "/#faq", label: "FAQ" },
               ].map((link) => (
                 <li key={link.href}>
                   <Link
@@ -53,8 +54,8 @@ export default function Footer() {
           className="pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs"
           style={{ borderTop: "1px solid rgba(201,168,76,0.1)", color: "rgba(232,220,200,0.3)" }}
         >
-          <p>© {new Date().getFullYear()} UAEROI. All rights reserved.</p>
-          <p>Data is indicative — always verify with a licensed agent. Dubai 🇦🇪</p>
+          <p>© {new Date().getFullYear()} Dubai ROI. All rights reserved.</p>
+          <p>Data is indicative. Always verify with a licensed agent. Dubai only.</p>
         </div>
       </div>
     </footer>

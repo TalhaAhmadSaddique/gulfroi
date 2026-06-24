@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import dynamic from "next/dynamic";
 import {
   CalculatorIcon,
   TrendingUp,
@@ -17,7 +18,16 @@ import {
 } from "lucide-react";
 import type { MarketArea, PropTypeStats } from "@/lib/market-data";
 import type { AreaTrend } from "@/lib/quarterly-trends.types";
-import QuarterlyTrendChart from "@/components/QuarterlyTrendChart";
+import type { CatalogEntry } from "@/lib/market-server";
+
+const QuarterlyTrendChart = dynamic(() => import("@/components/QuarterlyTrendChart"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-48 flex items-center justify-center text-xs" style={{ color: "rgba(232,220,200,0.4)" }}>
+      Loading chart…
+    </div>
+  ),
+});
 
 // ── Types ──────────────────────────────────────────────────
 
@@ -373,15 +383,14 @@ function SectionCard({ children, icon, title, iconColor = "var(--gold)" }: {
 
 // ── Main Component ─────────────────────────────────────────
 
-export default function UAECalculator({
-  areas,
-  propTypes,
-  trends = {},
-}: {
-  areas: MarketArea[];
-  propTypes: string[];
-  trends?: Record<string, AreaTrend>;
-}) {
+export default function DubaiCalculator() {
+  const [catalog, setCatalog] = useState<CatalogEntry[]>([]);
+  const [propTypes, setPropTypes] = useState<string[]>([]);
+  const [catalogLoading, setCatalogLoading] = useState(true);
+  const [areaLoading, setAreaLoading] = useState(false);
+  const [currentArea, setCurrentArea] = useState<MarketArea | null>(null);
+  const [currentTrend, setCurrentTrend] = useState<AreaTrend | null>(null);
+
   const [selectedType, setSelectedType] = useState<string>("");
   const [selectedCity, setSelectedCity] = useState<string>("");
   const [selectedArea, setSelectedArea] = useState<string>("");
@@ -400,25 +409,43 @@ export default function UAECalculator({
     otherMonthlyExpenses: 500,
   });
 
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/market/catalog");
+        if (!res.ok) throw new Error("catalog failed");
+        const data = (await res.json()) as { propTypes: string[]; entries: CatalogEntry[] };
+        if (!cancelled) {
+          setPropTypes(data.propTypes);
+          setCatalog(data.entries);
+        }
+      } catch {
+        if (!cancelled) {
+          setPropTypes([]);
+          setCatalog([]);
+        }
+      } finally {
+        if (!cancelled) setCatalogLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
   // Derived options based on upstream selections
   const cityOptions = useMemo(() => {
     if (!selectedType) return [];
     return [...new Set(
-      areas.filter((a) => a.byType.some((t) => t.type === selectedType)).map((a) => a.city)
+      catalog.filter((a) => a.types.includes(selectedType)).map((a) => a.city)
     )].sort();
-  }, [areas, selectedType]);
+  }, [catalog, selectedType]);
 
   const areaOptions = useMemo(() => {
     if (!selectedType || !selectedCity) return [];
-    return areas.filter(
-      (a) => a.city === selectedCity && a.byType.some((t) => t.type === selectedType)
+    return catalog.filter(
+      (a) => a.city === selectedCity && a.types.includes(selectedType)
     );
-  }, [areas, selectedType, selectedCity]);
-
-  const currentArea = useMemo(
-    () => areas.find((a) => a.city === selectedCity && a.area === selectedArea),
-    [areas, selectedCity, selectedArea]
-  );
+  }, [catalog, selectedType, selectedCity]);
 
   // The active PropTypeStats for the selected type within the current area
   const activeTypeStats = useMemo(
@@ -443,24 +470,43 @@ export default function UAECalculator({
     setSelectedType(type);
     setSelectedCity("");
     setSelectedArea("");
+    setCurrentArea(null);
+    setCurrentTrend(null);
     if (results) setIsStale(true);
   };
 
   const handleCityChange = (city: string) => {
     setSelectedCity(city);
     setSelectedArea("");
+    setCurrentArea(null);
+    setCurrentTrend(null);
     if (results) setIsStale(true);
   };
 
-  const handleAreaChange = (areaName: string) => {
+  const handleAreaChange = useCallback(async (areaName: string) => {
     setSelectedArea(areaName);
-    const m = areas.find((a) => a.city === selectedCity && a.area === areaName);
-    if (m && inp.propertySizeSqft > 0) {
-      const tStats = m.byType.find((t) => t.type === selectedType) ?? null;
-      autoFill(m, tStats, inp.propertySizeSqft);
-    }
+    setCurrentArea(null);
+    setCurrentTrend(null);
     if (results) setIsStale(true);
-  };
+
+    if (!selectedCity || !areaName) return;
+
+    setAreaLoading(true);
+    try {
+      const params = new URLSearchParams({ city: selectedCity, area: areaName });
+      const res = await fetch(`/api/market/area?${params}`);
+      if (!res.ok) return;
+      const data = (await res.json()) as { area: MarketArea; trend: AreaTrend | null };
+      setCurrentArea(data.area);
+      setCurrentTrend(data.trend);
+      if (inp.propertySizeSqft > 0) {
+        const tStats = data.area.byType.find((t) => t.type === selectedType) ?? null;
+        autoFill(data.area, tStats, inp.propertySizeSqft);
+      }
+    } finally {
+      setAreaLoading(false);
+    }
+  }, [selectedCity, selectedType, inp.propertySizeSqft, results, autoFill]);
 
   const handleCalculate = () => {
     setResults(calculate(inp));
@@ -502,7 +548,7 @@ export default function UAECalculator({
           <SectionCard icon={<MapPin className="h-4 w-4" />} title="Area Selection">
             <div className="space-y-3">
 
-              {/* Step 1 — Property Type */}
+              {/* Step 1: Property Type */}
               <div>
                 <Label>Property Type</Label>
                 <select
@@ -511,18 +557,20 @@ export default function UAECalculator({
                   className="dark-select w-full h-10 px-3 text-sm"
                 >
                   <option value="">Select property type…</option>
-                  {propTypes.map((t) => <option key={t} value={t}>{t}</option>)}
+                  {catalogLoading
+                    ? <option disabled>Loading…</option>
+                    : propTypes.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
               </div>
 
-              {/* Step 2 — City (filtered by type) */}
+              {/* Step 2: City (filtered by type) */}
               {selectedType && (
                 <div>
                   <Label>City / Emirate</Label>
                   <select
                     value={selectedCity}
                     onChange={(e) => handleCityChange(e.target.value)}
-                    className="dark-select w-full h-10 px-3 text-sm"
+                    className="dark-select w-full min-h-[44px] h-11 px-3 text-sm"
                   >
                     <option value="">Select a city…</option>
                     {cityOptions.map((c) => <option key={c} value={c}>{c}</option>)}
@@ -530,14 +578,14 @@ export default function UAECalculator({
                 </div>
               )}
 
-              {/* Step 3 — Area (filtered by type + city) */}
+              {/* Step 3: Area (filtered by type + city) */}
               {selectedType && selectedCity && (
                 <div>
                   <Label>Neighbourhood / Area</Label>
                   <select
                     value={selectedArea}
                     onChange={(e) => handleAreaChange(e.target.value)}
-                    className="dark-select w-full h-10 px-3 text-sm"
+                    className="dark-select w-full min-h-[44px] h-11 px-3 text-sm"
                   >
                     <option value="">Select an area…</option>
                     {areaOptions.map((a) => (
@@ -547,7 +595,7 @@ export default function UAECalculator({
                   {activeTypeStats?.grossYieldPct === null && selectedArea && (
                     <p className="text-xs mt-1.5 flex items-center gap-1" style={{ color: "rgba(232,220,200,0.4)" }}>
                       <Info className="h-3 w-3 flex-shrink-0" />
-                      No rental data for this type — enter rent manually
+                      No rental data for this type. Enter rent manually.
                     </p>
                   )}
                 </div>
@@ -571,19 +619,19 @@ export default function UAECalculator({
                   <div className="flex items-center gap-1.5 mb-2">
                     <BarChart3 className="h-4 w-4" style={{ color: "var(--gold)" }} />
                     <span className="font-semibold" style={{ color: "var(--gold-light)" }}>
-                      Market Snapshot — {snapshotLabel}
+                      Market Snapshot: {snapshotLabel}
                     </span>
                   </div>
                   {[
                     { label: "Avg. Price",        value: `AED ${fmt(displayPrice)} /sqft` },
-                    { label: "Avg. Annual Rent",   value: displayRent  ? `AED ${fmt(displayRent)} /sqft` : "—" },
-                    { label: "Gross Yield",        value: displayYield !== null ? `${displayYield}%`     : "—" },
+                    { label: "Avg. Annual Rent",   value: displayRent  ? `AED ${fmt(displayRent)} /sqft` : "N/A" },
+                    { label: "Gross Yield",        value: displayYield !== null ? `${displayYield}%`     : "N/A" },
                     { label: "Service Charge",     value: `AED ${fmt(currentArea.avgServiceChargePerSqft)} /sqft/yr` },
                     { label: "Property Types",     value: currentArea.byType.map((t) => t.type).join(", ") },
                   ].map((r) => (
                     <div key={r.label} className="flex items-center justify-between">
                       <span style={{ color: "rgba(232,220,200,0.5)" }}>{r.label}</span>
-                      <span className="font-semibold" style={{ color: r.value === "—" ? "rgba(232,220,200,0.3)" : "var(--gold-light)" }}>
+                      <span className="font-semibold" style={{ color: r.value === "N/A" ? "rgba(232,220,200,0.3)" : "var(--gold-light)" }}>
                         {r.value}
                       </span>
                     </div>
@@ -600,13 +648,19 @@ export default function UAECalculator({
           </SectionCard>
 
           {/* ── Quarterly Trend Chart ── */}
-          {currentArea && trends[currentArea.area] && (
+          {currentArea && currentTrend && (
             <div
               className="glass-card px-5 pt-4 pb-5"
               style={{ borderColor: "rgba(201,168,76,0.15)" }}
             >
-              <QuarterlyTrendChart trend={trends[currentArea.area]} />
+              <QuarterlyTrendChart trend={currentTrend} />
             </div>
+          )}
+
+          {areaLoading && (
+            <p className="text-xs text-center" style={{ color: "rgba(232,220,200,0.4)" }}>
+              Loading area data…
+            </p>
           )}
 
           {/* Property Details */}
@@ -739,7 +793,7 @@ export default function UAECalculator({
               }}
             >
               <RefreshCw className="h-4 w-4 shrink-0" />
-              Inputs changed — click <strong className="mx-1">Recalculate</strong> to update.
+              Inputs changed. Click <strong className="mx-1">Recalculate</strong> to update.
             </div>
           )}
 
@@ -763,7 +817,7 @@ export default function UAECalculator({
 
           {results && (
             <div key={resultKey}>
-              {/* Monthly Cash Flow — Hero metric */}
+              {/* Monthly Cash Flow (hero metric) */}
               <div
                 className="rounded-2xl p-5 mb-4"
                 style={{
@@ -957,14 +1011,14 @@ export default function UAECalculator({
                         label: "Your Gross Yield",
                         yours: results.grossRentalYield,
                         market: activeTypeStats?.grossYieldPct ?? currentArea.avgGrossYieldPct,
-                        fmtFn: (v: number | null) => v != null ? fmtPct(v) : "—",
+                        fmtFn: (v: number | null) => v != null ? fmtPct(v) : "N/A",
                         lowerBetter: false,
                       },
                       {
                         label: "Price per Sqft",
                         yours: inp.propertySizeSqft > 0 ? inp.purchasePrice / inp.propertySizeSqft : 0,
                         market: activeTypeStats?.avgPricePerSqft ?? currentArea.avgPricePerSqft,
-                        fmtFn: (v: number | null) => v != null ? `AED ${fmt(v, 0)}` : "—",
+                        fmtFn: (v: number | null) => v != null ? `AED ${fmt(v, 0)}` : "N/A",
                         lowerBetter: true,
                       },
                     ].map((r) => {

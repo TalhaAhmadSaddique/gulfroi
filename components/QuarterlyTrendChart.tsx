@@ -146,7 +146,7 @@ export default function QuarterlyTrendChart({ trend }: { trend: AreaTrend }) {
           className="text-[10px] font-medium px-2 py-0.5 rounded-full ml-auto"
           style={{ background: "rgba(201,168,76,0.12)", color: "rgba(232,220,200,0.5)" }}
         >
-          Q1 2024 – Q1 2026 · DLD Data
+          Q1 2024 to Q1 2026 · DLD Data
         </span>
       </div>
 

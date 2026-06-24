@@ -1,0 +1,102 @@
+[
+  {
+    "date": "01/31/2019",
+    "brand": "Hill's Science Diet",
+    "product": "Canned Dog Food",
+    "product_type": "Animal & Veterinary, Pet Food",
+    "reason": "Potentially Elevated Levels of Vitamin D",
+    "company": "Hill's Pet Nutrition",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/hills-pet-nutrition-voluntarily-recalls-select-canned-dog-food-excessive-vitamin-d",
+    "source": "json"
+  },
+  {
+    "date": "05/21/2019",
+    "brand": "Hill\u2019s",
+    "product": "Canned Dog Food",
+    "product_type": "Animal & Veterinary, Pet Food, Animal Feed",
+    "reason": "Potentially Elevated Levels of Vitamin D",
+    "company": "Hill\u2019s Pet Nutrition",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/hills-pet-nutrition-additionally-expands-voluntary-recall-select-canned-dog-food-elevated-vitamin-d",
+    "source": "json"
+  },
+  {
+    "date": "08/15/2019",
+    "brand": "Texas Tripe",
+    "product": "Raw frozen pet food",
+    "product_type": "Animal & Veterinary, Pet Food",
+    "reason": "Potential to be contaminated with Salmonella and Listeria monocytogenes",
+    "company": "Texas Tripe Inc.",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/fda-cautions-pet-owners-not-feed-texas-tripe-inc-raw-pet-food-due-salmonella-listeria-monocytogenes",
+    "source": "json"
+  },
+  {
+    "date": "03/20/2023",
+    "brand": "Kaytee",
+    "product": "Wild Bird Food Birders\u2019 Blend",
+    "product_type": "Animal & Veterinary, Pet Food",
+    "reason": "Potential Elevated Levels of Aflatoxin",
+    "company": "Kaytee Products Inc.",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/voluntary-recall-one-lot-kayteer-wild-bird-food-birders-blend-8-lb-bag-due-elevated-levels-aflatoxin",
+    "source": "json"
+  },
+  {
+    "date": "06/22/2024",
+    "brand": "Sunseed Vita Prima",
+    "product": "Hedgehog Food",
+    "product_type": "Animal & Veterinary, Food & Beverages, Pet Food",
+    "reason": "Due to potential Salmonella contamination",
+    "company": "Vitakraft Sun Seed Inc.",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/vitakraft-sun-seed-recall-sun-seed-vita-prima-hedgehog-food-due-possible-salmonella-health-risk",
+    "source": "json"
+  },
+  {
+    "date": "09/23/2024",
+    "brand": "ANSWERS",
+    "product": "Beef and Chicken Dog Foods",
+    "product_type": "Animal & Veterinary, Food & Beverages, Pet Food, Foodborne Illness",
+    "reason": "Due to Potential Salmonella and Listeria",
+    "company": "Lystn, LLC. d.b.a. ANSWERS",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/answers-pet-food-voluntarily-withdrawals-certain-limited-lots-beef-and-chicken-dog-foods-due",
+    "source": "json"
+  },
+  {
+    "date": "11/22/2024",
+    "brand": "Gaines Family Farmstead",
+    "product": "Chicken Chips Dog Treats",
+    "product_type": "Animal & Veterinary, Pet Food",
+    "reason": "Potential Salmonella Contamination",
+    "company": "Gaines Pet Treats LLC",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/gaines-pet-treats-llc-voluntarily-recalls-gaines-family-farmstead-chicken-chips-dogs-due-possible",
+    "source": "json"
+  },
+  {
+    "date": "12/04/2024",
+    "brand": "Blue Ridge Beef",
+    "product": "Puppy Mix",
+    "product_type": "Animal & Veterinary, Pet Food",
+    "reason": "Potential Foodborne Illness - Salmonella",
+    "company": "Blue Ridge Beef",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/blue-ridge-beef-issues-voluntary-recall-blue-ridge-beef-puppy-mix-due-salmonella-contamination",
+    "source": "json"
+  },
+  {
+    "date": "01/03/2025",
+    "brand": "Blue Ridge Beef",
+    "product": "Kitten mix pet food",
+    "product_type": "Animal & Veterinary, Pet Food",
+    "reason": "Potential to be contaminated with Salmonella",
+    "company": "Blue Ridge Beef",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/blue-ridge-beef-recalls-blue-ridge-beef-kitten-mix-due-salmonella-contamination",
+    "source": "json"
+  },
+  {
+    "date": "01/31/2025",
+    "brand": "Blue Ridge Beef",
+    "product": "Natural Mix",
+    "product_type": "Animal & Veterinary, Food & Beverages, Pet Food, Foodborne Illness",
+    "reason": "Salmonella contamination",
+    "company": "Blue Ridge Beef",
+    "url": "https://www.fda.gov/safety/recalls-market-withdrawals-safety-alerts/blue-ridge-beef-issues-recall-blue-ridge-beef-natural-mix-due-salmonella-contamination",
+    "source": "json"
+  }
+]

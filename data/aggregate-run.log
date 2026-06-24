@@ -1,0 +1,14 @@
+Reading transactions…
+  1172543 sale records, 111 areas
+Reading rents…
+  961,226 rent records, 170 areas with rent data
+Aggregating…
+
+Done! → data/market-summary.json  (474 KB)
+  Areas:  108
+  Trends: 106
+
+Sanity check (top 3 by transactions):
+  Al Barsha South Fourth: AED 1504/sqft, yield 6.7%
+  Madinat Al Mataar: AED 1568/sqft, yield 5.8%
+  Business Bay: AED 2540/sqft, yield 4.8%
