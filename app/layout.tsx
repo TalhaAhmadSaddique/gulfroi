@@ -6,21 +6,21 @@ export const metadata: Metadata = {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",
   },
-  title: "UAE ROI Calculator — Know Your Returns Before You Invest",
+  title: "Dubai ROI Calculator — Know Your Returns Before You Invest",
   description:
-    "Free UAE real estate ROI calculator. Instant gross yield, net yield, cash flow, and mortgage analysis for Dubai, Abu Dhabi, Sharjah and all emirates — powered by live area market data.",
+    "Free Dubai real estate ROI calculator. Instant gross yield, net yield, cash flow, and mortgage analysis — powered by real DLD and Ejari area data.",
   keywords: [
-    "UAE ROI calculator",
+    "Dubai ROI calculator",
     "Dubai real estate ROI",
-    "property investment UAE",
+    "property investment Dubai",
     "rental yield calculator Dubai",
-    "Abu Dhabi property ROI",
-    "UAE property investment calculator",
+    "DLD property data",
+    "Dubai property investment calculator",
   ],
   openGraph: {
-    title: "UAE ROI Calculator — Know Your Returns Before You Invest",
+    title: "Dubai ROI Calculator — Know Your Returns Before You Invest",
     description:
-      "Free, instant UAE property ROI analysis with area-level market data for all 7 emirates.",
+      "Free, instant Dubai property ROI analysis with area-level DLD market data.",
     type: "website",
   },
 };

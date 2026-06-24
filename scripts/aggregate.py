@@ -11,14 +11,15 @@ Unit notes (DLD data):
 """
 
 import csv, json, os, collections, statistics
+from datetime import date
 
 SQFT_PER_SQM = 10.7639   # 1 sqm = 10.7639 sqft
 
-TX_FILE   = "transactions_2026-05-21_02-13-21_1.csv.gz"
-RENT_FILE = "data/dld-rents.csv"
+TX_FILE   = "/media/talha/26402263402239C7/transactions_2026-05-29_02-08-58_2.csv.gz"
+RENT_FILE = "/media/talha/26402263402239C7/data/rent_contracts_2026-05-30_18-51-21_2.csv"
 OUT_FILE  = "data/market-summary.json"
 
-CUT_OFF_DATE  = "2025-01-01"
+CUT_OFF_DATE  = "2025-06-23"   # last 1 year from reference date 2026-06-23
 MIN_TYPE_TX   = 5
 MIN_AREA_TX   = 10
 
@@ -64,12 +65,12 @@ sale = collections.defaultdict(
     })
 )
 
-with open(TX_FILE, encoding="utf-8", errors="replace") as f:
+with open(TX_FILE, encoding="utf-8", errors="replace", newline="") as f:
     reader = csv.DictReader(f)
     for row in reader:
         if row.get("trans_group_en") != "Sales":           continue
-        date = row.get("instance_date", "")
-        if date < CUT_OFF_DATE:                            continue
+        tx_date = row.get("instance_date", "")
+        if tx_date < CUT_OFF_DATE:                            continue
         if row.get("property_usage_en", "").strip() != "Residential": continue
 
         area = row.get("area_name_en", "").strip()
@@ -83,7 +84,7 @@ with open(TX_FILE, encoding="utf-8", errors="replace") as f:
         if sub_raw not in RESI_TYPES:                      continue
         sub = RENAME.get(sub_raw, sub_raw)
 
-        q_key, q_lbl, q_yr = quarter_of(date)
+        q_key, q_lbl, q_yr = quarter_of(tx_date)
         if not q_key:                                      continue
 
         is_offplan   = row.get("reg_type_en","").strip() == "Off-Plan Properties"
@@ -108,20 +109,33 @@ print("Reading rents…")
 rent = collections.defaultdict(lambda: collections.defaultdict(list))
 
 if os.path.exists(RENT_FILE):
-    with open(RENT_FILE, encoding="utf-8", errors="replace") as f:
+    rent_count = 0
+    with open(RENT_FILE, encoding="utf-8", errors="replace", newline="") as f:
         reader = csv.DictReader(f)
         for row in reader:
-            if row.get("USAGE_EN","").strip() != "Residential": continue
-            area_r   = row.get("AREA_EN","").strip()
-            annual   = float(row.get("ANNUAL_AMOUNT") or 0)
-            area_sqm = float(row.get("ACTUAL_AREA") or 0)   # SQM in rent file
-            if not annual or area_sqm < 5:                  continue
-            rps_sqm  = annual / area_sqm                    # AED/sqm/year
-            if not (50 < rps_sqm < 30_000):                 continue
-            sub_raw  = row.get("PROP_SUB_TYPE_EN","").strip()
-            sub      = RENAME.get(sub_raw, sub_raw)
+            start = (row.get("contract_start_date") or "")[:10]
+            if start < CUT_OFF_DATE:
+                continue
+            if row.get("property_usage_en", "").strip() != "Residential":
+                continue
+            area_r = row.get("area_name_en", "").strip()
+            if not area_r:
+                continue
+            annual   = float(row.get("annual_amount") or 0)
+            area_sqm = float(row.get("actual_area") or 0)   # SQM
+            if not annual or area_sqm < 5:
+                continue
+            rps_sqm = annual / area_sqm                    # AED/sqm/year
+            if not (50 < rps_sqm < 30_000):
+                continue
+            # ejari_property_type_en = Flat/Villa (not room-level sub_type)
+            sub_raw = row.get("ejari_property_type_en", "").strip()
+            if sub_raw not in RESI_TYPES:
+                continue
+            sub = RENAME.get(sub_raw, sub_raw)
             rent[area_r.upper()][sub].append(rps_sqm)
-    print(f"  {len(rent)} areas with rent data")
+            rent_count += 1
+    print(f"  {rent_count:,} rent records, {len(rent)} areas with rent data")
 else:
     print("  No rent file — yield will be null")
 
@@ -286,8 +300,8 @@ areas_out.sort(key=lambda a: a["area"])
 
 os.makedirs("data", exist_ok=True)
 output = {
-    "generatedAt": "2026-06-08",
-    "source":      "DLD Transactions 2025–2026 (Real Data)",
+    "generatedAt": date.today().isoformat(),
+    "source":      f"DLD Sales + Ejari Rents (last 1 year from {CUT_OFF_DATE})",
     "totalAreas":  len(areas_out),
     "areas":       areas_out,
     "trends":      trends_out,

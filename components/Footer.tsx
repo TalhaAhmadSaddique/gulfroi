@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { CalculatorIcon } from "lucide-react";
+import { getDubaiMarketStats } from "@/lib/featured-areas";
 
 export default function Footer() {
+  const { areaCount } = getDubaiMarketStats();
   return (
     <footer style={{ background: "#040506", borderTop: "1px solid rgba(201,168,76,0.12)" }} className="py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -22,8 +24,8 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-sm max-w-xs mt-2" style={{ color: "rgba(232,220,200,0.4)" }}>
-              Free, instant UAE real estate ROI analysis. No signup, no hidden fees.
-              Area market data for all 7 emirates.
+              Free, instant Dubai real estate ROI analysis. No signup, no hidden fees.
+              Real DLD and Ejari data for {areaCount} Dubai neighbourhoods.
             </p>
           </div>
           <div>
@@ -52,7 +54,7 @@ export default function Footer() {
           style={{ borderTop: "1px solid rgba(201,168,76,0.1)", color: "rgba(232,220,200,0.3)" }}
         >
           <p>© {new Date().getFullYear()} UAEROI. All rights reserved.</p>
-          <p>Data is indicative — always verify with a licensed agent. 🇦🇪</p>
+          <p>Data is indicative — always verify with a licensed agent. Dubai 🇦🇪</p>
         </div>
       </div>
     </footer>

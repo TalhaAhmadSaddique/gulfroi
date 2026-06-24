@@ -484,13 +484,13 @@ export default function UAECalculator({
           }}
         >
           <CalculatorIcon className="h-4 w-4" />
-          UAE Real Estate ROI Calculator
+          Dubai Real Estate ROI Calculator
         </div>
         <h1 className="text-3xl md:text-4xl font-extrabold mb-2" style={{ color: "#F0E8D8" }}>
-          Analyse Any UAE Property in Seconds
+          Analyse Any Dubai Property in Seconds
         </h1>
         <p className="max-w-xl mx-auto" style={{ color: "rgba(232,220,200,0.5)" }}>
-          Select an area to auto-fill market benchmarks, then customise with your actual deal terms.
+          Select a Dubai area to auto-fill market benchmarks from DLD data, then customise with your actual deal terms.
         </p>
       </div>
 
